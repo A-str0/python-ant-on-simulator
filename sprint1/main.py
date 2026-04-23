@@ -25,10 +25,10 @@ def load_colony(filename: str):
 
 
 if __name__ == "__main__":
-    colony = Colony("colony_1", 5, 100)
+    colony = Colony("colony_1", 15, 999)
 
-    colony.tick()
-    colony.tick()
+    for i in range(11):
+        colony.tick()
 
     save_colony(colony)
 
