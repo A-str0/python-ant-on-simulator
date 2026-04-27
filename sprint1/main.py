@@ -1,5 +1,4 @@
 from pathlib import Path
-from ants import Ant, Harvester
 from colony import Colony
 from storage import (
     list_saves as _list_saves,
