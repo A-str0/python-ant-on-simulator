@@ -41,3 +41,13 @@ class TestStorage:
         assert loaded_colony.to_dict() == storage_colony.to_dict(), (
             "colonies must be equal"
         )
+
+    def test_load_nonexistent_colony(self, save_dir):
+        """Test loading a colony that doesn't exist raises FileNotFoundError."""
+        with pytest.raises(FileNotFoundError):
+            storage.load_colony(filename="nonexistent_colony", save_dir=save_dir)
+
+    def test_load_nonexistent_json_file(self, save_dir):
+        """Test loading with .json extension for non-existent file raises FileNotFoundError."""
+        with pytest.raises(FileNotFoundError):
+            storage.load_colony(filename="fake_colony.json", save_dir=save_dir)

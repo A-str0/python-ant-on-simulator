@@ -63,3 +63,21 @@ class TestAnts:
         assert harvester.happiness <= 0, (
             "playing TOOOO much billiard definitely won't make lil harvey happy, every margin billiard game with homies after some moment will become struggle"
         )
+
+    def test_harvester_dies_after_life_period(self, harvester):
+        """Test that harvester dies exactly at life_period + 1 tick."""
+        life_period = harvester_characteristics["life_period"]
+        for _ in range(life_period):
+            assert harvester.alive, f"Ant should be alive before reaching life_period"
+            harvester.tick()
+        
+        assert harvester.alive, "Ant should still be alive at exactly life_period ticks"
+        harvester.tick()
+        assert not harvester.alive, "Ant should be dead after life_period"
+
+    def test_harvester_age_increments(self, harvester):
+        """Test that ant age increments correctly on each tick."""
+        assert harvester.age == 0, "Initial age must be 0"
+        for i in range(1, 6):
+            harvester.tick()
+            assert harvester.age == i, f"Age should be {i} after {i} ticks"
