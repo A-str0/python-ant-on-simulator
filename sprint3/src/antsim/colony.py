@@ -15,6 +15,7 @@ from .ants import (
     normalize_ant_type,
 )
 from .campaign import Mission, default_campaign
+from .logging_utils import write_log
 from .rooms import ROOM_TRAIN_MAP, Room, create_default_rooms
 
 
@@ -113,6 +114,10 @@ class NeighborColony:
     strength: int = 20
     resources: dict[str, int] | None = None
     last_action: str = "молчит и копает"
+    ideology: str = "нейтральная суета"
+    temperament: str = "balanced"
+    trade_bias: str = "food"
+    at_war: bool = False
 
     def __post_init__(self) -> None:
         if self.resources is None:
@@ -125,6 +130,10 @@ class NeighborColony:
             "strength": self.strength,
             "resources": dict(self.resources or {}),
             "last_action": self.last_action,
+            "ideology": self.ideology,
+            "temperament": self.temperament,
+            "trade_bias": self.trade_bias,
+            "at_war": self.at_war,
         }
 
     @classmethod
@@ -135,7 +144,79 @@ class NeighborColony:
             strength=data.get("strength", 20),
             resources=dict(data.get("resources", {})),
             last_action=data.get("last_action", "молчит и копает"),
+            ideology=data.get("ideology", "нейтральная суета"),
+            temperament=data.get("temperament", "balanced"),
+            trade_bias=data.get("trade_bias", "food"),
+            at_war=bool(data.get("at_war", False)),
         )
+
+
+def create_default_neighbors() -> list[NeighborColony]:
+    return [
+        NeighborColony(
+            "Колония имени чужого дедлайна",
+            attitude=-5,
+            strength=25,
+            resources={"food": 70, "protein": 35, "water": 55, "antcoin": 5},
+            ideology="водопадный scrum",
+            temperament="balanced",
+            trade_bias="food",
+        ),
+        NeighborColony(
+            "Братство Забродившего Сиропа",
+            attitude=8,
+            strength=18,
+            resources={"food": 40, "protein": 20, "water": 120, "antcoin": 12},
+            ideology="анархо-бильярдизм",
+            temperament="fermented",
+            trade_bias="water",
+        ),
+        NeighborColony(
+            "Федерация Мягкого Знака",
+            attitude=12,
+            strength=14,
+            resources={"food": 85, "protein": 10, "water": 60, "antcoin": 2},
+            ideology="ььььь",
+            temperament="friendly",
+            trade_bias="food",
+        ),
+        NeighborColony(
+            "Кладбищенский Кооператив Живых",
+            attitude=-12,
+            strength=35,
+            resources={"food": 25, "protein": 90, "water": 25, "antcoin": 0},
+            ideology="некрофорез как сервис",
+            temperament="grim",
+            trade_bias="protein",
+        ),
+        NeighborColony(
+            "DAO Грибного Стартапа",
+            attitude=3,
+            strength=22,
+            resources={"food": 120, "protein": 15, "water": 80, "antcoin": 55},
+            ideology="венчурный мицелий",
+            temperament="crypto",
+            trade_bias="antcoin",
+        ),
+        NeighborColony(
+            "Караван Кий-Экспресса",
+            attitude=0,
+            strength=28,
+            resources={"food": 55, "protein": 55, "water": 55, "antcoin": 20},
+            ideology="логистика через рикошет",
+            temperament="merchant",
+            trade_bias="food",
+        ),
+        NeighborColony(
+            "Военный Улус Взрывающихся",
+            attitude=-20,
+            strength=60,
+            resources={"food": 45, "protein": 70, "water": 35, "antcoin": 8},
+            ideology="если сомневаешься - взорвись",
+            temperament="hostile",
+            trade_bias="protein",
+        ),
+    ]
 
 
 class Colony:
@@ -197,9 +278,7 @@ class Colony:
             "interest_rate": 0.07,
             "last_action": "рынок делает вид, что регулируется сам",
         }
-        self.neighbors: list[NeighborColony] = [
-            NeighborColony("Колония имени чужого дедлайна", attitude=-5, strength=25)
-        ]
+        self.neighbors: list[NeighborColony] = create_default_neighbors()
         self.campaign: list[Mission] = default_campaign()
         self.ai = TemplateAI(mode="off")
         self.ai_lines_generated = 0
@@ -222,6 +301,7 @@ class Colony:
     def log(self, message: str) -> None:
         self.event_log.append(f"[TICK {self.time}] {message}")
         self.event_log = self.event_log[-80:]
+        write_log(f"{self.id}: [TICK {self.time}] {message}", category="colony")
 
     def get_alive_ants(self) -> list[Ant]:
         return [ant for ant in self.ants if ant.alive]
@@ -297,6 +377,7 @@ class Colony:
         if self.random_events_enabled:
             self._maybe_spawn_event()
         self._market_session_if_needed()
+        self._neighbors_tick()
         self._campaign_tick()
         self.record_history()
 
@@ -427,6 +508,13 @@ class Colony:
             for ant in self.get_alive_ants():
                 if self.random.random() < 0.05:
                     ant.add_status(AntStatus.BILLIARD_MAIN, duration=20)
+        elif event.type == "meme_plague":
+            for ant in self.get_alive_ants():
+                if self.random.random() < 0.03:
+                    ant.add_status(AntStatus.ARTIST, duration=8)
+                    ant.happiness = min(100, ant.happiness + 2)
+        elif event.type == "room_identity_crisis":
+            self.resources["food"] = max(0, self.resources["food"] - 1)
 
     def _resolve_event(self, event: RandomEvent) -> None:
         if event.type == "pheromone_death_spiral":
@@ -455,6 +543,15 @@ class Colony:
                     ant.remove_status(AntStatus.BILLIARD_MAIN)
         elif event.type == "ufo_abduction":
             self._return_enlightened_ants()
+        elif event.type == "soft_sign_coup":
+            for ant in self.get_alive_ants():
+                ant.remove_status(AntStatus.STRIKING)
+        elif event.type == "antcoin_rugpull":
+            self.ant_price = max(0.000001, self.ant_price * 0.7)
+        elif event.type == "bureaucracy_audit":
+            for ant in self.get_alive_ants():
+                if AntStatus.OFFICIAL in ant.statuses:
+                    ant.train_stat("Д", 0.5)
 
     def _maybe_spawn_event(self) -> None:
         checks = [
@@ -465,6 +562,16 @@ class Colony:
             (0.015, self.spawn_billiard_addiction),
             (0.006, self.spawn_radiation),
             (0.004, self.spawn_ufo_abduction),
+            (0.010, self.spawn_meme_plague),
+            (0.008, self.spawn_bug_report_rain),
+            (0.006, self.spawn_antcoin_rugpull),
+            (0.006, self.spawn_soft_sign_coup),
+            (0.006, self.spawn_bureaucracy_audit),
+            (0.005, self.spawn_corpse_false_positive),
+            (0.005, self.spawn_market_brainrot),
+            (0.004, self.spawn_room_identity_crisis),
+            (0.004, self.spawn_neighbor_caravan),
+            (0.003, self.spawn_cue_revolution),
             (0.010, lambda: self.hold_voting("Провести бильярдный турнир")),
         ]
         for chance, spawn_fn in checks:
@@ -551,6 +658,142 @@ class Colony:
             ant.add_status(AntStatus.ABDUCTED, duration=50)
             ant.alive = False
         return self._new_event("НЛО над муравейником", "ufo_abduction", 50)
+
+    def spawn_meme_plague(self) -> RandomEvent:
+        event = self._new_event(
+            "Меметическая плесень",
+            "meme_plague",
+            8,
+            "муравьи повторяют один и тот же прикол, продуктивность спорная",
+        )
+        for ant in self.random.sample(
+            self.get_alive_ants(), min(6, len(self.get_alive_ants()))
+        ):
+            ant.add_status(AntStatus.ARTIST, duration=8)
+            ant.happiness = min(100, ant.happiness + 5)
+        return event
+
+    def spawn_bug_report_rain(self) -> RandomEvent:
+        event = self._new_event(
+            "Дождь баг-репортов",
+            "bug_report_rain",
+            4,
+            "тест-лид открыл окно и оттуда посыпались issue",
+        )
+        for ant in self.get_alive_ants():
+            ant.happiness = max(0, ant.happiness - 2)
+            if ant.stats.get("Д", 5) < 5 and self.random.random() < 0.2:
+                ant.add_status(AntStatus.OUTRAGED, duration=6)
+        return event
+
+    def spawn_antcoin_rugpull(self) -> RandomEvent:
+        event = self._new_event(
+            "Rug Pull ANTCOIN",
+            "antcoin_rugpull",
+            3,
+            "анонимный муравей слил ликвидность и сказал DYOR",
+        )
+        self.antcoin = max(0.0, self.antcoin * 0.75)
+        self.ant_price = max(0.000001, self.ant_price * 0.55)
+        self.defi["last_action"] = "ANTCOIN rug pull: ликвидность ушла в кладбище"
+        return event
+
+    def spawn_soft_sign_coup(self) -> RandomEvent:
+        event = self._new_event(
+            "Переворот мягкого знака",
+            "soft_sign_coup",
+            5,
+            "ь потребовал отдельную ветку власти и комнату побольше",
+        )
+        for ant in self.get_alive_ants():
+            if ant.stats.get("Ь", 5) < 4 and self.random.random() < 0.25:
+                ant.add_status(AntStatus.STRIKING, duration=5)
+            elif ant.stats.get("Ь", 5) >= 7:
+                ant.train_stat("Я", 0.2)
+        return event
+
+    def spawn_bureaucracy_audit(self) -> RandomEvent:
+        event = self._new_event(
+            "Ревизия чиновников",
+            "bureaucracy_audit",
+            5,
+            "матка спросила где ресурсы, чиновники спросили по какой форме",
+        )
+        for ant in self.get_alive_ants():
+            if AntStatus.OFFICIAL in ant.statuses:
+                ant.remove_status(AntStatus.CORRUPTED)
+                ant.add_status(AntStatus.INJURED, duration=2)
+        return event
+
+    def spawn_corpse_false_positive(self) -> RandomEvent:
+        event = self._new_event(
+            "Ложноположительный труп",
+            "corpse_false_positive",
+            3,
+            "система решила, что живой муравей мертвый, потому что пахнет как дедлайн",
+        )
+        for ant in self.random.sample(
+            self.get_alive_ants(), min(3, len(self.get_alive_ants()))
+        ):
+            ant.add_status(AntStatus.SMELLS_LIKE_DEAD, duration=3)
+            self._move_to_cemetery(self.ants.index(ant), ant)
+        return event
+
+    def spawn_market_brainrot(self) -> RandomEvent:
+        event = self._new_event(
+            "Биржевой брейнрот",
+            "market_brainrot",
+            6,
+            "трейдеры увидели свечу и начали объяснять паттерн голова-муравей-плечи",
+        )
+        self.market_rates = {
+            key: max(0.1, value * self.random.uniform(0.5, 1.8))
+            for key, value in self.market_rates.items()
+        }
+        for ant in self.get_alive_ants():
+            if ant.current_room == "trade_floor":
+                ant.add_status(AntStatus.FERMENTED, duration=4)
+        return event
+
+    def spawn_room_identity_crisis(self) -> RandomEvent:
+        event = self._new_event(
+            "Комната не определилась",
+            "room_identity_crisis",
+            5,
+            "склад пищи называет себя бильярдной, кладбище требует water room",
+        )
+        enabled_rooms = [room for room in self.rooms.values() if room.enabled]
+        if len(enabled_rooms) >= 2:
+            first, second = self.random.sample(enabled_rooms, 2)
+            first.extra["temporary_identity"] = second.type
+            second.extra["temporary_identity"] = first.type
+        return event
+
+    def spawn_neighbor_caravan(self) -> RandomEvent:
+        event = self._new_event(
+            "Караван соседей",
+            "neighbor_caravan",
+            4,
+            "соседи пришли торговать, воевать или просто стоять в проходе",
+        )
+        neighbor = self.random.choice(self.neighbors)
+        neighbor.attitude += self.random.randint(-3, 5)
+        neighbor.resources["food"] = neighbor.resources.get("food", 0) + 20
+        neighbor.last_action = "отправила караван с подозрительными семечками"
+        return event
+
+    def spawn_cue_revolution(self) -> RandomEvent:
+        event = self._new_event(
+            "Революция бильярдных киёв",
+            "cue_revolution",
+            7,
+            "кии объявили себя отдельной кастой и требуют оборонный бюджет",
+        )
+        self.rooms["cue_armory"].defense = min(100, self.rooms["cue_armory"].defense + 10)
+        for ant in self.get_alive_ants():
+            if ant.current_room == "billiard_room":
+                ant.add_status(AntStatus.CHAMPION, duration=7)
+        return event
 
     def _return_enlightened_ants(self) -> None:
         abducted = [
@@ -652,11 +895,25 @@ class Colony:
         if resource not in self.resources or self.resources[resource] < amount:
             return False
         neighbor = self.neighbors[neighbor_index]
+        wanted = neighbor.trade_bias if neighbor.trade_bias in self.resources else resource
+        if resource != wanted and neighbor.temperament not in {"friendly", "merchant"}:
+            neighbor.attitude -= 1
         self.resources[resource] -= amount
-        self.resources["food"] += max(1, amount // 2)
-        neighbor.attitude += 2
+        neighbor.resources[resource] = neighbor.resources.get(resource, 0) + amount
+        payment_resource = "food"
+        if neighbor.trade_bias in self.resources and neighbor.resources.get(neighbor.trade_bias, 0) > 0:
+            payment_resource = neighbor.trade_bias
+        payment = max(1, amount // 2)
+        available = neighbor.resources.get(payment_resource, 0)
+        actual_payment = min(payment, available)
+        neighbor.resources[payment_resource] = max(0, available - actual_payment)
+        self.resources[payment_resource] += actual_payment
+        neighbor.attitude += 3 if resource == wanted else 1
         neighbor.last_action = f"торговля ресурсом {resource}"
-        self.log(f"торговля с {neighbor.name}: {resource} x{amount}")
+        self.log(
+            f"торговля с {neighbor.name}: отдали {amount} {resource}, "
+            f"получили {actual_payment} {payment_resource}"
+        )
         self._mission_progress("diplomacy", 1)
         return True
 
@@ -675,6 +932,7 @@ class Colony:
             if neighbor.resources:
                 neighbor.resources["food"] = max(0, neighbor.resources.get("food", 0) - loot)
             neighbor.attitude -= 20
+            neighbor.at_war = True
             neighbor.last_action = "получила по феромонам"
             result = f"победа, добыто {loot} еды"
         else:
@@ -683,10 +941,56 @@ class Colony:
             ):
                 ant.add_status(AntStatus.INJURED, duration=5)
             neighbor.attitude -= 10
+            neighbor.at_war = True
             result = "поражение, трое сделали вид что это разведка"
         self.log(f"война с {neighbor.name}: {result}")
         self._mission_progress("diplomacy", 1)
         return result
+
+    def make_peace(self, neighbor_index: int) -> bool:
+        if neighbor_index < 0 or neighbor_index >= len(self.neighbors):
+            return False
+        neighbor = self.neighbors[neighbor_index]
+        cost = 15
+        if self.resources.get("food", 0) < cost:
+            return False
+        self.resources["food"] -= cost
+        neighbor.attitude += 12
+        neighbor.at_war = False
+        neighbor.last_action = "подписала мир на салфетке из листа"
+        self.log(f"мир с {neighbor.name}: минус {cost} еды, плюс видимость дипломатии")
+        self._mission_progress("diplomacy", 1)
+        return True
+
+    def _neighbors_tick(self) -> None:
+        if self.time % 7 != 0:
+            return
+        for neighbor in self.neighbors:
+            drift = {
+                "friendly": 1,
+                "merchant": 0,
+                "crypto": self.random.choice([-2, 3]),
+                "fermented": self.random.choice([-3, -1, 2]),
+                "hostile": -2,
+                "grim": -1,
+            }.get(neighbor.temperament, 0)
+            neighbor.attitude = max(-100, min(100, neighbor.attitude + drift))
+            if neighbor.resources is None:
+                continue
+            neighbor.resources["food"] = neighbor.resources.get("food", 0) + self.random.randint(0, 4)
+            neighbor.resources["water"] = neighbor.resources.get("water", 0) + self.random.randint(0, 3)
+            if neighbor.temperament == "crypto":
+                neighbor.resources["antcoin"] = neighbor.resources.get("antcoin", 0) + self.random.randint(-3, 8)
+                neighbor.last_action = "объясняет, почему грибной токен скоро полетит"
+            elif neighbor.at_war and self.random.random() < 0.2:
+                victims = self.random.sample(
+                    self.get_alive_ants(), min(2, len(self.get_alive_ants()))
+                )
+                for ant in victims:
+                    ant.add_status(AntStatus.INJURED, duration=4)
+                neighbor.last_action = "провела мелкий рейд, назвала это спецоперацией"
+            elif self.random.random() < 0.08:
+                neighbor.last_action = "прислала дипломатическую ноту из феромонов и угроз"
 
     def mine_antcoin(self, amount: float | None = None) -> float:
         if amount is None:

@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 
 from .colony import Colony
+from .logging_utils import write_log
 
 
 def ensure_save_dir(save_dir: Path) -> Path:
@@ -16,6 +17,7 @@ def save_colony(colony: Colony, save_dir: Path) -> Path:
         json.dumps(colony.to_dict(), ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
+    write_log(f"saved colony {colony.id} to {path}", category="storage")
     return path
 
 
@@ -33,4 +35,6 @@ def load_colony(filename: str, save_dir: Path) -> Colony:
         raise FileNotFoundError(filename)
 
     data = json.loads(path.read_text(encoding="utf-8"))
-    return Colony.from_dict(data)
+    colony = Colony.from_dict(data)
+    write_log(f"loaded colony {colony.id} from {path}", category="storage")
+    return colony

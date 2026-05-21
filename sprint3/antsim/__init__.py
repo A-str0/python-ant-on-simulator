@@ -15,7 +15,10 @@ from .ants import (  # noqa: E402,F401
     WeaverAnt,
     ant_from_dict,
     create_ant,
+    load_name_config,
+    reload_name_config,
 )
+from .logging_utils import get_log_path, tail_log, write_log  # noqa: E402,F401
 from .colony import Colony, RandomEvent, VotingResult  # noqa: E402,F401
 from .rooms import Room, create_default_rooms  # noqa: E402,F401
 
@@ -30,6 +33,11 @@ __all__ = [
     "WeaverAnt",
     "ant_from_dict",
     "create_ant",
+    "load_name_config",
+    "reload_name_config",
+    "get_log_path",
+    "tail_log",
+    "write_log",
     "Colony",
     "RandomEvent",
     "VotingResult",

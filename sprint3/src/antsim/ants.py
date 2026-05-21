@@ -1,4 +1,7 @@
 import abc
+import hashlib
+import json
+from pathlib import Path
 from typing import Any
 from uuid import uuid4
 
@@ -42,19 +45,209 @@ class AntStatus:
 
 STAT_NAMES = ["Б", "И", "Л", "Ь", "Я", "Р", "Д"]
 
-PERSONAL_NAMES = [
+NAME_ROOTS = [
     "Жора",
     "Илюха",
-    "Борис-Бильярдный",
-    "Матвей-Не-Дверь",
-    "Семён-Семечка",
-    "Рома-Рельса",
-    "Антон-ANT",
-    "Лёха-Лифтинг",
-    "Ььь",
-    "Кирилл-Кворум",
-    "Пахом-Пахнет",
+    "Борис",
+    "Матвей",
+    "Семён",
+    "Рома",
+    "Антон",
+    "Лёха",
+    "Кирилл",
+    "Пахом",
+    "Федя",
+    "Гриша",
+    "Тимур",
+    "Аркадий",
+    "Валера",
+    "Глеб",
+    "Платон",
+    "Савелий",
+    "Ярик",
+    "Прохор",
+    "Степан",
+    "Эдик",
+    "Марк",
+    "Толя",
+    "Мурат",
+    "Костя",
+    "Никита",
+    "Витя",
+    "Гена",
+    "Даня",
+    "Паша",
+    "Слава",
+    "Боб",
+    "Не-Боб",
 ]
+
+NAME_PREFIXES = [
+    "",
+    "тов.",
+    "гр.",
+    "сэр",
+    "д-р",
+    "арх.",
+    "кап.",
+    "ст.",
+    "млад.",
+    "проф.",
+    "NFT",
+    "ANT",
+    "парторг",
+    "барон",
+    "кибер",
+]
+
+NAME_EPITHETS = [
+    "Бильярдный",
+    "Не-Дверь",
+    "Семечка",
+    "Рельса",
+    "Лифтинг",
+    "Пахнет",
+    "Кворум",
+    "Феромоныч",
+    "Забродил",
+    "Мягкий-Знак",
+    "Дедлайн",
+    "Грибной",
+    "Сиропов",
+    "Кий",
+    "Плотник-Личинок",
+    "Антсвапов",
+    "Чиновник",
+    "Кладбищев",
+    "Комнатный",
+    "Коридоров",
+    "Случайный",
+    "Графиков",
+    "Терминальный",
+    "Спринтов",
+    "JSON-ов",
+    "Маткин",
+    "Плесневый",
+    "Стейкер",
+    "Кредитов",
+    "Невиноват",
+]
+
+NAME_SUFFIXES = [
+    "",
+    "I",
+    "II",
+    "III",
+    "мл.",
+    "ст.",
+    "3000",
+    "v2",
+    "Classic",
+    "без газа",
+    "с кием",
+    "из кладбища",
+    "по талону",
+    "на максималках",
+    "с пропиской",
+]
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+NAME_CONFIG_PATH = PROJECT_ROOT / "config" / "name_parts.json"
+LEGACY_NAME_CONFIG_PATH = PROJECT_ROOT / "name_config.json"
+_name_config_cache: dict[str, list[str]] | None = None
+_name_config_cache_path: Path | None = None
+_name_config_cache_mtime: float | None = None
+
+
+def _default_name_config() -> dict[str, list[str]]:
+    return {
+        "roots": list(NAME_ROOTS),
+        "prefixes": list(NAME_PREFIXES),
+        "epithets": list(NAME_EPITHETS),
+        "suffixes": list(NAME_SUFFIXES),
+    }
+
+
+def _stable_seed_value(seed: str) -> int:
+    digest = hashlib.sha256(seed.encode("utf-8")).hexdigest()
+    return int(digest[:16], 16)
+
+
+def reload_name_config(config_path: str | Path = NAME_CONFIG_PATH) -> dict[str, list[str]]:
+    global _name_config_cache, _name_config_cache_path, _name_config_cache_mtime
+    _name_config_cache = None
+    _name_config_cache_path = None
+    _name_config_cache_mtime = None
+    return load_name_config(config_path)
+
+
+def load_name_config(config_path: str | Path = NAME_CONFIG_PATH) -> dict[str, list[str]]:
+    global _name_config_cache, _name_config_cache_path, _name_config_cache_mtime
+
+    path = Path(config_path)
+    if not path.exists() and path == NAME_CONFIG_PATH and LEGACY_NAME_CONFIG_PATH.exists():
+        path = LEGACY_NAME_CONFIG_PATH
+    cache_path = path.resolve(strict=False)
+    mtime = path.stat().st_mtime if path.exists() else None
+    if (
+        _name_config_cache is not None
+        and _name_config_cache_path == cache_path
+        and _name_config_cache_mtime == mtime
+    ):
+        return _name_config_cache
+
+    defaults = _default_name_config()
+    if not path.exists():
+        _name_config_cache = defaults
+        _name_config_cache_path = cache_path
+        _name_config_cache_mtime = None
+        return defaults
+
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        _name_config_cache = defaults
+        _name_config_cache_path = cache_path
+        _name_config_cache_mtime = mtime
+        return defaults
+
+    result: dict[str, list[str]] = {}
+    for key, fallback in defaults.items():
+        values = data.get(key)
+        if isinstance(values, list) and all(isinstance(item, str) for item in values) and values:
+            result[key] = values
+        else:
+            result[key] = fallback
+
+    _name_config_cache = result
+    _name_config_cache_path = cache_path
+    _name_config_cache_mtime = mtime
+    return result
+
+
+def generate_personal_name(seed: str) -> str:
+    config = load_name_config()
+    roots = config["roots"]
+    prefixes = config["prefixes"]
+    epithets = config["epithets"]
+    suffixes = config["suffixes"]
+    value = _stable_seed_value(seed)
+    root = roots[value % len(roots)]
+    prefix = prefixes[(value // 7) % len(prefixes)]
+    epithet = epithets[(value // 17) % len(epithets)]
+    suffix = suffixes[(value // 31) % len(suffixes)]
+
+    parts = []
+    if prefix:
+        parts.append(prefix)
+    parts.append(root)
+    if (value // 5) % 3 != 0:
+        parts[-1] = f"{parts[-1]}-{epithet}"
+    else:
+        parts.append(epithet)
+    if suffix:
+        parts.append(suffix)
+    return " ".join(parts)
 
 
 def _clamp_stat(value: int) -> int:
@@ -86,7 +279,7 @@ class Ant(abc.ABC):
     ) -> None:
         self.id = str(uuid4())
         self.name = name
-        self.personal_name = PERSONAL_NAMES[hash(self.id) % len(PERSONAL_NAMES)]
+        self.personal_name = generate_personal_name(self.id)
         self.carry_capacity = carry_capacity
         self.life_period = life_period
         self.food_per_tick = food_per_tick
@@ -220,9 +413,7 @@ class Ant(abc.ABC):
     def from_dict(cls, data: dict[str, Any]) -> "Ant":
         ant = cls()
         ant.id = data.get("id", str(uuid4()))
-        ant.personal_name = data.get(
-            "personal_name", PERSONAL_NAMES[hash(ant.id) % len(PERSONAL_NAMES)]
-        )
+        ant.personal_name = data.get("personal_name", generate_personal_name(ant.id))
         ant.age = data.get("age", 0)
         ant.alive = data.get("alive", True)
         ant.statuses = set(data.get("statuses", []))

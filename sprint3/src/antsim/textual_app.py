@@ -18,6 +18,7 @@ from textual.widgets import Footer, Header, Static
 from .ants import AntStatus, STAT_NAMES
 from .charts import heatmap, line_chart, radar_stats
 from .colony import Colony
+from .logging_utils import write_log
 from .storage import save_colony
 
 
@@ -123,6 +124,7 @@ class ColonyTuiApp(App[None]):
         Binding("i", "ai", "AI"),
         Binding("t", "trade", "Trade"),
         Binding("w", "war", "War"),
+        Binding("y", "peace", "Peace"),
         Binding("l", "liquidity", "LP"),
         Binding("b", "borrow", "Borrow"),
         Binding("k", "stake", "Stake"),
@@ -152,6 +154,7 @@ class ColonyTuiApp(App[None]):
         yield Footer()
 
     def on_mount(self) -> None:
+        write_log(f"Textual TUI mounted for {self.colony.id}", category="tui")
         self.set_interval(0.5, self._auto_tick)
         self.refresh_view()
 
@@ -234,6 +237,7 @@ class ColonyTuiApp(App[None]):
     def action_save(self) -> None:
         path = save_colony(self.colony, self.save_dir)
         self.message = f"Сохранено: {path.name}"
+        write_log(f"TUI save action for {self.colony.id}", category="tui")
         self.refresh_view()
 
     def action_god(self) -> None:
@@ -267,12 +271,21 @@ class ColonyTuiApp(App[None]):
         self.refresh_view()
 
     def action_trade(self) -> None:
-        ok = self.colony.trade_with_neighbor(self.selected_neighbor, "water", 10)
+        neighbor = self.colony.neighbors[self.selected_neighbor]
+        resource = neighbor.trade_bias if neighbor.trade_bias in self.colony.resources else "water"
+        if self.colony.resources.get(resource, 0) < 10:
+            resource = max(self.colony.resources, key=lambda key: self.colony.resources[key])
+        ok = self.colony.trade_with_neighbor(self.selected_neighbor, resource, 10)
         self.message = "Торговля прошла" if ok else "Торговля не прошла"
         self.refresh_view()
 
     def action_war(self) -> None:
         self.message = self.colony.attack_neighbor(self.selected_neighbor)
+        self.refresh_view()
+
+    def action_peace(self) -> None:
+        ok = self.colony.make_peace(self.selected_neighbor)
+        self.message = "Мир подписан на листе" if ok else "Мир не купился"
         self.refresh_view()
 
     def action_liquidity(self) -> None:
@@ -476,6 +489,7 @@ class ColonyTuiApp(App[None]):
         table.add_column("name")
         table.add_column("attitude")
         table.add_column("strength")
+        table.add_column("ideology")
         table.add_column("last action")
         for index, neighbor in enumerate(self.colony.neighbors):
             marker = ">" if index == self.selected_neighbor else " "
@@ -485,10 +499,11 @@ class ColonyTuiApp(App[None]):
                 neighbor.name,
                 str(neighbor.attitude),
                 str(neighbor.strength),
+                neighbor.ideology,
                 neighbor.last_action,
                 style=style,
             )
-        return Group(table, Text("t trade water | w war", style="yellow"))
+        return Group(table, Text("t trade preferred resource | w war | y peace", style="yellow"))
 
     def _render_campaign(self) -> Table:
         table = Table(title="Story Campaign", box=box.SIMPLE_HEAVY, expand=True)
@@ -523,7 +538,7 @@ class ColonyTuiApp(App[None]):
                     "R send billiard_main ants to target room",
                     "v vote, f force event, G God balagan, s save",
                     "m mine ANT, n mint NFT, l liquidity, b borrow, k stake",
-                    "t trade with selected neighbor, w attack selected neighbor",
+                    "t trade with selected neighbor, w attack, y peace",
                     "i ask AI-off queen dialogue",
                     "q quit",
                 ]
