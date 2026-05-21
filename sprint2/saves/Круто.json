@@ -1,0 +1,703 @@
+{
+  "id": "Круто",
+  "food": 0,
+  "time": 1,
+  "ant_type": "ExplodingAnt",
+  "ants": [
+    {
+      "type": "ExplodingAnt",
+      "name": "Взрывающиеся муравьи",
+      "carry_capacity": 2,
+      "life_period": 20,
+      "food_per_tick": 4,
+      "birth_rate": 1.0,
+      "speed": 1,
+      "role": "soldier",
+      "age": 1,
+      "alive": true,
+      "statuses": [],
+      "stats": {
+        "Б": 7,
+        "И": 7,
+        "Л": 3,
+        "Ь": 3,
+        "Я": 8,
+        "Р": 4,
+        "Д": 6
+      },
+      "stat_progress": {
+        "Б": 0.05,
+        "И": 0.0,
+        "Л": 0.05,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": "food_storage"
+    },
+    {
+      "type": "ExplodingAnt",
+      "name": "Взрывающиеся муравьи",
+      "carry_capacity": 2,
+      "life_period": 20,
+      "food_per_tick": 4,
+      "birth_rate": 1.0,
+      "speed": 1,
+      "role": "soldier",
+      "age": 1,
+      "alive": true,
+      "statuses": [],
+      "stats": {
+        "Б": 7,
+        "И": 7,
+        "Л": 3,
+        "Ь": 3,
+        "Я": 8,
+        "Р": 4,
+        "Д": 6
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null
+    },
+    {
+      "type": "ExplodingAnt",
+      "name": "Взрывающиеся муравьи",
+      "carry_capacity": 2,
+      "life_period": 20,
+      "food_per_tick": 4,
+      "birth_rate": 1.0,
+      "speed": 1,
+      "role": "soldier",
+      "age": 1,
+      "alive": true,
+      "statuses": [],
+      "stats": {
+        "Б": 7,
+        "И": 7,
+        "Л": 3,
+        "Ь": 3,
+        "Я": 8,
+        "Р": 4,
+        "Д": 6
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null
+    },
+    {
+      "type": "ExplodingAnt",
+      "name": "Взрывающиеся муравьи",
+      "carry_capacity": 2,
+      "life_period": 20,
+      "food_per_tick": 4,
+      "birth_rate": 1.0,
+      "speed": 1,
+      "role": "soldier",
+      "age": 1,
+      "alive": true,
+      "statuses": [],
+      "stats": {
+        "Б": 7,
+        "И": 7,
+        "Л": 3,
+        "Ь": 3,
+        "Я": 8,
+        "Р": 4,
+        "Д": 6
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null
+    },
+    {
+      "type": "ExplodingAnt",
+      "name": "Взрывающиеся муравьи",
+      "carry_capacity": 2,
+      "life_period": 20,
+      "food_per_tick": 4,
+      "birth_rate": 1.0,
+      "speed": 1,
+      "role": "soldier",
+      "age": 1,
+      "alive": true,
+      "statuses": [],
+      "stats": {
+        "Б": 7,
+        "И": 7,
+        "Л": 3,
+        "Ь": 3,
+        "Я": 8,
+        "Р": 4,
+        "Д": 6
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null
+    },
+    {
+      "type": "ExplodingAnt",
+      "name": "Взрывающиеся муравьи",
+      "carry_capacity": 2,
+      "life_period": 20,
+      "food_per_tick": 4,
+      "birth_rate": 1.0,
+      "speed": 1,
+      "role": "soldier",
+      "age": 1,
+      "alive": true,
+      "statuses": [],
+      "stats": {
+        "Б": 7,
+        "И": 7,
+        "Л": 3,
+        "Ь": 3,
+        "Я": 8,
+        "Р": 4,
+        "Д": 6
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null
+    },
+    {
+      "type": "ExplodingAnt",
+      "name": "Взрывающиеся муравьи",
+      "carry_capacity": 2,
+      "life_period": 20,
+      "food_per_tick": 4,
+      "birth_rate": 1.0,
+      "speed": 1,
+      "role": "soldier",
+      "age": 1,
+      "alive": true,
+      "statuses": [],
+      "stats": {
+        "Б": 7,
+        "И": 7,
+        "Л": 3,
+        "Ь": 3,
+        "Я": 8,
+        "Р": 4,
+        "Д": 6
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null
+    },
+    {
+      "type": "ExplodingAnt",
+      "name": "Взрывающиеся муравьи",
+      "carry_capacity": 2,
+      "life_period": 20,
+      "food_per_tick": 4,
+      "birth_rate": 1.0,
+      "speed": 1,
+      "role": "soldier",
+      "age": 1,
+      "alive": true,
+      "statuses": [],
+      "stats": {
+        "Б": 7,
+        "И": 7,
+        "Л": 3,
+        "Ь": 3,
+        "Я": 8,
+        "Р": 4,
+        "Д": 6
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null
+    },
+    {
+      "type": "ExplodingAnt",
+      "name": "Взрывающиеся муравьи",
+      "carry_capacity": 2,
+      "life_period": 20,
+      "food_per_tick": 4,
+      "birth_rate": 1.0,
+      "speed": 1,
+      "role": "soldier",
+      "age": 1,
+      "alive": true,
+      "statuses": [],
+      "stats": {
+        "Б": 7,
+        "И": 7,
+        "Л": 3,
+        "Ь": 3,
+        "Я": 8,
+        "Р": 4,
+        "Д": 6
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null
+    },
+    {
+      "type": "ExplodingAnt",
+      "name": "Взрывающиеся муравьи",
+      "carry_capacity": 2,
+      "life_period": 20,
+      "food_per_tick": 4,
+      "birth_rate": 1.0,
+      "speed": 1,
+      "role": "soldier",
+      "age": 1,
+      "alive": true,
+      "statuses": [],
+      "stats": {
+        "Б": 7,
+        "И": 7,
+        "Л": 3,
+        "Ь": 3,
+        "Я": 8,
+        "Р": 4,
+        "Д": 6
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null
+    },
+    {
+      "type": "ExplodingAnt",
+      "name": "Взрывающиеся муравьи",
+      "carry_capacity": 2,
+      "life_period": 20,
+      "food_per_tick": 4,
+      "birth_rate": 1.0,
+      "speed": 1,
+      "role": "soldier",
+      "age": 1,
+      "alive": true,
+      "statuses": [],
+      "stats": {
+        "Б": 7,
+        "И": 7,
+        "Л": 3,
+        "Ь": 3,
+        "Я": 8,
+        "Р": 4,
+        "Д": 6
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null
+    },
+    {
+      "type": "ExplodingAnt",
+      "name": "Взрывающиеся муравьи",
+      "carry_capacity": 2,
+      "life_period": 20,
+      "food_per_tick": 4,
+      "birth_rate": 1.0,
+      "speed": 1,
+      "role": "soldier",
+      "age": 1,
+      "alive": true,
+      "statuses": [],
+      "stats": {
+        "Б": 7,
+        "И": 7,
+        "Л": 3,
+        "Ь": 3,
+        "Я": 8,
+        "Р": 4,
+        "Д": 6
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null
+    },
+    {
+      "type": "ExplodingAnt",
+      "name": "Взрывающиеся муравьи",
+      "carry_capacity": 2,
+      "life_period": 20,
+      "food_per_tick": 4,
+      "birth_rate": 1.0,
+      "speed": 1,
+      "role": "soldier",
+      "age": 1,
+      "alive": true,
+      "statuses": [],
+      "stats": {
+        "Б": 7,
+        "И": 7,
+        "Л": 3,
+        "Ь": 3,
+        "Я": 8,
+        "Р": 4,
+        "Д": 6
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null
+    },
+    {
+      "type": "ExplodingAnt",
+      "name": "Взрывающиеся муравьи",
+      "carry_capacity": 2,
+      "life_period": 20,
+      "food_per_tick": 4,
+      "birth_rate": 1.0,
+      "speed": 1,
+      "role": "soldier",
+      "age": 1,
+      "alive": true,
+      "statuses": [],
+      "stats": {
+        "Б": 7,
+        "И": 7,
+        "Л": 3,
+        "Ь": 3,
+        "Я": 8,
+        "Р": 4,
+        "Д": 6
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null
+    },
+    {
+      "type": "ExplodingAnt",
+      "name": "Взрывающиеся муравьи",
+      "carry_capacity": 2,
+      "life_period": 20,
+      "food_per_tick": 4,
+      "birth_rate": 1.0,
+      "speed": 1,
+      "role": "soldier",
+      "age": 1,
+      "alive": true,
+      "statuses": [],
+      "stats": {
+        "Б": 7,
+        "И": 7,
+        "Л": 3,
+        "Ь": 3,
+        "Я": 8,
+        "Р": 4,
+        "Д": 6
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null
+    },
+    {
+      "type": "ExplodingAnt",
+      "name": "Взрывающиеся муравьи",
+      "carry_capacity": 2,
+      "life_period": 20,
+      "food_per_tick": 4,
+      "birth_rate": 1.0,
+      "speed": 1,
+      "role": "soldier",
+      "age": 1,
+      "alive": true,
+      "statuses": [],
+      "stats": {
+        "Б": 7,
+        "И": 7,
+        "Л": 3,
+        "Ь": 3,
+        "Я": 8,
+        "Р": 4,
+        "Д": 6
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null
+    },
+    {
+      "type": "ExplodingAnt",
+      "name": "Взрывающиеся муравьи",
+      "carry_capacity": 2,
+      "life_period": 20,
+      "food_per_tick": 4,
+      "birth_rate": 1.0,
+      "speed": 1,
+      "role": "soldier",
+      "age": 1,
+      "alive": true,
+      "statuses": [],
+      "stats": {
+        "Б": 7,
+        "И": 7,
+        "Л": 3,
+        "Ь": 3,
+        "Я": 8,
+        "Р": 4,
+        "Д": 6
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null
+    },
+    {
+      "type": "ExplodingAnt",
+      "name": "Взрывающиеся муравьи",
+      "carry_capacity": 2,
+      "life_period": 20,
+      "food_per_tick": 4,
+      "birth_rate": 1.0,
+      "speed": 1,
+      "role": "soldier",
+      "age": 1,
+      "alive": true,
+      "statuses": [],
+      "stats": {
+        "Б": 7,
+        "И": 7,
+        "Л": 3,
+        "Ь": 3,
+        "Я": 8,
+        "Р": 4,
+        "Д": 6
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null
+    },
+    {
+      "type": "ExplodingAnt",
+      "name": "Взрывающиеся муравьи",
+      "carry_capacity": 2,
+      "life_period": 20,
+      "food_per_tick": 4,
+      "birth_rate": 1.0,
+      "speed": 1,
+      "role": "soldier",
+      "age": 1,
+      "alive": true,
+      "statuses": [],
+      "stats": {
+        "Б": 7,
+        "И": 7,
+        "Л": 3,
+        "Ь": 3,
+        "Я": 8,
+        "Р": 4,
+        "Д": 6
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null
+    }
+  ],
+  "rooms": {
+    "food_storage": {
+      "id": "food_storage",
+      "name": "Склад пищи",
+      "capacity": 50,
+      "type": "food_storage",
+      "ant_ids": [
+        "0"
+      ],
+      "extra": {}
+    },
+    "cemetery": {
+      "id": "cemetery",
+      "name": "Кладбище живых и мертвых",
+      "capacity": 30,
+      "type": "cemetery",
+      "ant_ids": [],
+      "extra": {}
+    },
+    "royal_chamber": {
+      "id": "royal_chamber",
+      "name": "Королевская зал",
+      "capacity": 10,
+      "type": "royal_chamber",
+      "ant_ids": [],
+      "extra": {}
+    },
+    "billiard_room": {
+      "id": "billiard_room",
+      "name": "Бильярдная",
+      "capacity": 20,
+      "type": "billiard_room",
+      "ant_ids": [],
+      "extra": {}
+    },
+    "soft_sign_room": {
+      "id": "soft_sign_room",
+      "name": "Комната мягкого знака",
+      "capacity": 15,
+      "type": "soft_sign_room",
+      "ant_ids": [],
+      "extra": {}
+    },
+    "pheromone_circle": {
+      "id": "pheromone_circle",
+      "name": "Феромоновый кружок (о)",
+      "capacity": 15,
+      "type": "pheromone_circle",
+      "ant_ids": [],
+      "extra": {}
+    },
+    "mushroom_startup": {
+      "id": "mushroom_startup",
+      "name": "Грибной стартап",
+      "capacity": 20,
+      "type": "mushroom_startup",
+      "ant_ids": [],
+      "extra": {}
+    },
+    "voting_room": {
+      "id": "voting_room",
+      "name": "Комната голосования",
+      "capacity": 40,
+      "type": "voting_room",
+      "ant_ids": [],
+      "extra": {}
+    },
+    "surface": {
+      "id": "surface",
+      "name": "Поверхность",
+      "capacity": 200,
+      "type": "surface",
+      "ant_ids": [],
+      "extra": {}
+    }
+  },
+  "active_events": [],
+  "last_voting": {
+    "for_count": 6,
+    "against_count": 11,
+    "abstain_count": 1,
+    "lost_count": 1,
+    "issue": "идти ли на пары илюхе завтра?",
+    "queen_overridden": false
+  },
+  "queen_morale": 50,
+  "mushroom_fungus_level": 0
+}
