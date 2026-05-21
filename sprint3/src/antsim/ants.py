@@ -338,9 +338,11 @@ class Ant(abc.ABC):
 
     def suffer_hunger(self) -> None:
         self.starvation_ticks += 1
-        self.health -= 25
+        resilience = max(1, self.stats.get("Д", 5))
+        damage = max(1, 10 - resilience // 2)
+        self.health -= damage
         self.happiness = max(0, self.happiness - 5)
-        self.remember("понял трёхресурсную экономику через боль")
+        self.remember(f"голодает ({self.starvation_ticks}), -{damage} HP, Д={resilience}")
         if self.health <= 0:
             self.die("не хватило одного из ресурсов")
 

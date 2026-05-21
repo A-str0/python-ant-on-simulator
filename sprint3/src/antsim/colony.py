@@ -246,7 +246,11 @@ class Colony:
         self.random = random.Random(seed)
         self.id = colony_id
         self.ant_type = normalize_ant_type(ant_type)
-        self.ants: list[Ant] = [create_ant(self.ant_type) for _ in range(ant_count)]
+        self.ants: list[Ant] = []
+        for _ in range(ant_count):
+            ant = create_ant(self.ant_type)
+            ant.age = self.random.randint(0, max(1, ant.life_period // 2))
+            self.ants.append(ant)
         self.time = 0
         self.resources: dict[str, int] = {
             "food": food,
@@ -364,6 +368,8 @@ class Colony:
             if not ant.alive:
                 self._move_to_cemetery(index, ant)
                 continue
+            if ant.current_room is None or ant.current_room not in self.rooms:
+                self._auto_assign_surface(index, ant)
             if not self._consume_resources(ant):
                 ant.suffer_hunger()
             else:
@@ -454,6 +460,12 @@ class Colony:
             if self.random.random() < 0.1:
                 ant.add_status(AntStatus.BILLIARD_MAIN, duration=20)
 
+    def _auto_assign_surface(self, index: int, ant: Ant) -> None:
+        surface = self.rooms.get("surface")
+        if surface and not surface.is_full:
+            ant.current_room = "surface"
+            surface.assign_ant(ant.id)
+
     def _handle_dead_assignments(self) -> None:
         for index, ant in enumerate(self.ants):
             if not ant.alive or AntStatus.DEAD in ant.statuses:
@@ -468,11 +480,15 @@ class Colony:
 
     def _handle_birth(self) -> None:
         alive = self.get_alive_ants()
-        if not alive or self.resources.get("food", 0) <= len(alive):
+        if not alive:
+            return
+        food_per_ant = self.resources.get("food", 0) / max(1, len(alive))
+        if food_per_ant < 2:
             return
         avg_birth_rate = sum(ant.birth_rate for ant in alive) / len(alive)
-        nursery_bonus = len(self.rooms["nursery"].ant_ids) * 0.001
-        birth_chance = avg_birth_rate / 120.0 + nursery_bonus
+        nursery_bonus = len(self.rooms["nursery"].ant_ids) * 0.005
+        pop_floor = 1.0 / max(1, len(alive) // 2)
+        birth_chance = avg_birth_rate / 10.0 + nursery_bonus + pop_floor * 0.05
         if self.random.random() < birth_chance:
             new_ant = create_ant(self.ant_type)
             if self.random.random() < 0.5 and any(
@@ -1284,6 +1300,11 @@ class Colony:
         colony = cls(data["id"], 0, food, ant_type)
         colony.time = int(data.get("time", 0))
         colony.ants = [ant_from_dict(ant_data) for ant_data in data.get("ants", [])]
+        alive_ages = [a.age for a in colony.ants if a.alive]
+        if len(alive_ages) >= 2 and len(set(alive_ages)) == 1:
+            for a in colony.ants:
+                if a.alive:
+                    a.age = colony.random.randint(0, max(1, a.life_period // 2))
         resources = data.get("resources")
         if resources:
             colony.resources = {str(k): int(v) for k, v in resources.items()}
