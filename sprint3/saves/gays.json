@@ -1,0 +1,945 @@
+{
+  "save_version": "3.0",
+  "id": "gays",
+  "food": 999,
+  "time": 0,
+  "ant_type": "WeaverAnt",
+  "ants": [
+    {
+      "id": "91724f5c-ee5b-4df0-b6fd-b59da3fc015c",
+      "type": "WeaverAnt",
+      "name": "Азиатские муравьи-портные",
+      "personal_name": "Борис-Бильярдный",
+      "carry_capacity": 4,
+      "life_period": 35,
+      "food_per_tick": 3,
+      "birth_rate": 1.2,
+      "speed": 1,
+      "role": "builder",
+      "age": 0,
+      "alive": true,
+      "statuses": [],
+      "status_timers": {},
+      "stats": {
+        "Б": 4,
+        "И": 6,
+        "Л": 4,
+        "Ь": 7,
+        "Я": 4,
+        "Р": 6,
+        "Д": 5
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null,
+      "happiness": 50,
+      "health": 100,
+      "starvation_ticks": 0,
+      "biography": [
+        "родился и сразу попал в ТЗ"
+      ],
+      "achievements": [],
+      "nft_id": null
+    },
+    {
+      "id": "fd6e5600-1edd-4848-8b4d-15ed569dedea",
+      "type": "WeaverAnt",
+      "name": "Азиатские муравьи-портные",
+      "personal_name": "Борис-Бильярдный",
+      "carry_capacity": 4,
+      "life_period": 35,
+      "food_per_tick": 3,
+      "birth_rate": 1.2,
+      "speed": 1,
+      "role": "builder",
+      "age": 0,
+      "alive": true,
+      "statuses": [],
+      "status_timers": {},
+      "stats": {
+        "Б": 4,
+        "И": 6,
+        "Л": 4,
+        "Ь": 7,
+        "Я": 4,
+        "Р": 6,
+        "Д": 5
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null,
+      "happiness": 50,
+      "health": 100,
+      "starvation_ticks": 0,
+      "biography": [
+        "родился и сразу попал в ТЗ"
+      ],
+      "achievements": [],
+      "nft_id": null
+    },
+    {
+      "id": "140c7eee-f9c7-44f8-adea-44e407e31c44",
+      "type": "WeaverAnt",
+      "name": "Азиатские муравьи-портные",
+      "personal_name": "Жора",
+      "carry_capacity": 4,
+      "life_period": 35,
+      "food_per_tick": 3,
+      "birth_rate": 1.2,
+      "speed": 1,
+      "role": "builder",
+      "age": 0,
+      "alive": true,
+      "statuses": [],
+      "status_timers": {},
+      "stats": {
+        "Б": 4,
+        "И": 6,
+        "Л": 4,
+        "Ь": 7,
+        "Я": 4,
+        "Р": 6,
+        "Д": 5
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null,
+      "happiness": 50,
+      "health": 100,
+      "starvation_ticks": 0,
+      "biography": [
+        "родился и сразу попал в ТЗ"
+      ],
+      "achievements": [],
+      "nft_id": null
+    },
+    {
+      "id": "270b4fe3-d214-49e5-b99e-a676a7136c19",
+      "type": "WeaverAnt",
+      "name": "Азиатские муравьи-портные",
+      "personal_name": "Антон-ANT",
+      "carry_capacity": 4,
+      "life_period": 35,
+      "food_per_tick": 3,
+      "birth_rate": 1.2,
+      "speed": 1,
+      "role": "builder",
+      "age": 0,
+      "alive": true,
+      "statuses": [],
+      "status_timers": {},
+      "stats": {
+        "Б": 4,
+        "И": 6,
+        "Л": 4,
+        "Ь": 7,
+        "Я": 4,
+        "Р": 6,
+        "Д": 5
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null,
+      "happiness": 50,
+      "health": 100,
+      "starvation_ticks": 0,
+      "biography": [
+        "родился и сразу попал в ТЗ"
+      ],
+      "achievements": [],
+      "nft_id": null
+    },
+    {
+      "id": "f9224a29-4df0-47bd-9f46-02e41cd5c148",
+      "type": "WeaverAnt",
+      "name": "Азиатские муравьи-портные",
+      "personal_name": "Илюха",
+      "carry_capacity": 4,
+      "life_period": 35,
+      "food_per_tick": 3,
+      "birth_rate": 1.2,
+      "speed": 1,
+      "role": "builder",
+      "age": 0,
+      "alive": true,
+      "statuses": [],
+      "status_timers": {},
+      "stats": {
+        "Б": 4,
+        "И": 6,
+        "Л": 4,
+        "Ь": 7,
+        "Я": 4,
+        "Р": 6,
+        "Д": 5
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null,
+      "happiness": 50,
+      "health": 100,
+      "starvation_ticks": 0,
+      "biography": [
+        "родился и сразу попал в ТЗ"
+      ],
+      "achievements": [],
+      "nft_id": null
+    },
+    {
+      "id": "cd80b5b8-bc49-46ef-a1ef-a17f32477653",
+      "type": "WeaverAnt",
+      "name": "Азиатские муравьи-портные",
+      "personal_name": "Борис-Бильярдный",
+      "carry_capacity": 4,
+      "life_period": 35,
+      "food_per_tick": 3,
+      "birth_rate": 1.2,
+      "speed": 1,
+      "role": "builder",
+      "age": 0,
+      "alive": true,
+      "statuses": [],
+      "status_timers": {},
+      "stats": {
+        "Б": 4,
+        "И": 6,
+        "Л": 4,
+        "Ь": 7,
+        "Я": 4,
+        "Р": 6,
+        "Д": 5
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null,
+      "happiness": 50,
+      "health": 100,
+      "starvation_ticks": 0,
+      "biography": [
+        "родился и сразу попал в ТЗ"
+      ],
+      "achievements": [],
+      "nft_id": null
+    },
+    {
+      "id": "1aa33d46-0e3b-46f2-8a2b-e4f45249c867",
+      "type": "WeaverAnt",
+      "name": "Азиатские муравьи-портные",
+      "personal_name": "Пахом-Пахнет",
+      "carry_capacity": 4,
+      "life_period": 35,
+      "food_per_tick": 3,
+      "birth_rate": 1.2,
+      "speed": 1,
+      "role": "builder",
+      "age": 0,
+      "alive": true,
+      "statuses": [],
+      "status_timers": {},
+      "stats": {
+        "Б": 4,
+        "И": 6,
+        "Л": 4,
+        "Ь": 7,
+        "Я": 4,
+        "Р": 6,
+        "Д": 5
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null,
+      "happiness": 50,
+      "health": 100,
+      "starvation_ticks": 0,
+      "biography": [
+        "родился и сразу попал в ТЗ"
+      ],
+      "achievements": [],
+      "nft_id": null
+    },
+    {
+      "id": "d5bcef2b-87c7-4b50-aafb-604185e214c9",
+      "type": "WeaverAnt",
+      "name": "Азиатские муравьи-портные",
+      "personal_name": "Илюха",
+      "carry_capacity": 4,
+      "life_period": 35,
+      "food_per_tick": 3,
+      "birth_rate": 1.2,
+      "speed": 1,
+      "role": "builder",
+      "age": 0,
+      "alive": true,
+      "statuses": [],
+      "status_timers": {},
+      "stats": {
+        "Б": 4,
+        "И": 6,
+        "Л": 4,
+        "Ь": 7,
+        "Я": 4,
+        "Р": 6,
+        "Д": 5
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null,
+      "happiness": 50,
+      "health": 100,
+      "starvation_ticks": 0,
+      "biography": [
+        "родился и сразу попал в ТЗ"
+      ],
+      "achievements": [],
+      "nft_id": null
+    },
+    {
+      "id": "147b05be-7d91-4c01-860c-d6d2e1e77ab8",
+      "type": "WeaverAnt",
+      "name": "Азиатские муравьи-портные",
+      "personal_name": "Ььь",
+      "carry_capacity": 4,
+      "life_period": 35,
+      "food_per_tick": 3,
+      "birth_rate": 1.2,
+      "speed": 1,
+      "role": "builder",
+      "age": 0,
+      "alive": true,
+      "statuses": [],
+      "status_timers": {},
+      "stats": {
+        "Б": 4,
+        "И": 6,
+        "Л": 4,
+        "Ь": 7,
+        "Я": 4,
+        "Р": 6,
+        "Д": 5
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null,
+      "happiness": 50,
+      "health": 100,
+      "starvation_ticks": 0,
+      "biography": [
+        "родился и сразу попал в ТЗ"
+      ],
+      "achievements": [],
+      "nft_id": null
+    },
+    {
+      "id": "af59aa5b-e4a0-4700-ba9a-393a2ec95012",
+      "type": "WeaverAnt",
+      "name": "Азиатские муравьи-портные",
+      "personal_name": "Борис-Бильярдный",
+      "carry_capacity": 4,
+      "life_period": 35,
+      "food_per_tick": 3,
+      "birth_rate": 1.2,
+      "speed": 1,
+      "role": "builder",
+      "age": 0,
+      "alive": true,
+      "statuses": [],
+      "status_timers": {},
+      "stats": {
+        "Б": 4,
+        "И": 6,
+        "Л": 4,
+        "Ь": 7,
+        "Я": 4,
+        "Р": 6,
+        "Д": 5
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null,
+      "happiness": 50,
+      "health": 100,
+      "starvation_ticks": 0,
+      "biography": [
+        "родился и сразу попал в ТЗ"
+      ],
+      "achievements": [],
+      "nft_id": null
+    },
+    {
+      "id": "49c24561-886f-47ad-b1ea-b3e0c389b859",
+      "type": "WeaverAnt",
+      "name": "Азиатские муравьи-портные",
+      "personal_name": "Борис-Бильярдный",
+      "carry_capacity": 4,
+      "life_period": 35,
+      "food_per_tick": 3,
+      "birth_rate": 1.2,
+      "speed": 1,
+      "role": "builder",
+      "age": 0,
+      "alive": true,
+      "statuses": [],
+      "status_timers": {},
+      "stats": {
+        "Б": 4,
+        "И": 6,
+        "Л": 4,
+        "Ь": 7,
+        "Я": 4,
+        "Р": 6,
+        "Д": 5
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null,
+      "happiness": 50,
+      "health": 100,
+      "starvation_ticks": 0,
+      "biography": [
+        "родился и сразу попал в ТЗ"
+      ],
+      "achievements": [],
+      "nft_id": null
+    },
+    {
+      "id": "c8a9e575-b298-473b-a2ec-d3e3f085cf1d",
+      "type": "WeaverAnt",
+      "name": "Азиатские муравьи-портные",
+      "personal_name": "Антон-ANT",
+      "carry_capacity": 4,
+      "life_period": 35,
+      "food_per_tick": 3,
+      "birth_rate": 1.2,
+      "speed": 1,
+      "role": "builder",
+      "age": 0,
+      "alive": true,
+      "statuses": [],
+      "status_timers": {},
+      "stats": {
+        "Б": 4,
+        "И": 6,
+        "Л": 4,
+        "Ь": 7,
+        "Я": 4,
+        "Р": 6,
+        "Д": 5
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null,
+      "happiness": 50,
+      "health": 100,
+      "starvation_ticks": 0,
+      "biography": [
+        "родился и сразу попал в ТЗ"
+      ],
+      "achievements": [],
+      "nft_id": null
+    },
+    {
+      "id": "271556fe-0df6-41ee-bfdc-33232d483ce1",
+      "type": "WeaverAnt",
+      "name": "Азиатские муравьи-портные",
+      "personal_name": "Борис-Бильярдный",
+      "carry_capacity": 4,
+      "life_period": 35,
+      "food_per_tick": 3,
+      "birth_rate": 1.2,
+      "speed": 1,
+      "role": "builder",
+      "age": 0,
+      "alive": true,
+      "statuses": [],
+      "status_timers": {},
+      "stats": {
+        "Б": 4,
+        "И": 6,
+        "Л": 4,
+        "Ь": 7,
+        "Я": 4,
+        "Р": 6,
+        "Д": 5
+      },
+      "stat_progress": {
+        "Б": 0.0,
+        "И": 0.0,
+        "Л": 0.0,
+        "Ь": 0.0,
+        "Я": 0.0,
+        "Р": 0.0,
+        "Д": 0.0
+      },
+      "current_room": null,
+      "happiness": 50,
+      "health": 100,
+      "starvation_ticks": 0,
+      "biography": [
+        "родился и сразу попал в ТЗ"
+      ],
+      "achievements": [],
+      "nft_id": null
+    }
+  ],
+  "resources": {
+    "food": 999,
+    "protein": 499,
+    "water": 499
+  },
+  "rooms": {
+    "food_storage": {
+      "id": "food_storage",
+      "name": "Склад пищи",
+      "capacity": 80,
+      "type": "food_storage",
+      "ant_ids": [],
+      "extra": {},
+      "x": 1,
+      "y": 1,
+      "defense": 5,
+      "enabled": true
+    },
+    "cemetery": {
+      "id": "cemetery",
+      "name": "Кладбище живых и мертвых",
+      "capacity": 60,
+      "type": "cemetery",
+      "ant_ids": [],
+      "extra": {},
+      "x": 0,
+      "y": 3,
+      "defense": 1,
+      "enabled": true
+    },
+    "royal_chamber": {
+      "id": "royal_chamber",
+      "name": "Королевская зал",
+      "capacity": 15,
+      "type": "royal_chamber",
+      "ant_ids": [],
+      "extra": {},
+      "x": 3,
+      "y": 2,
+      "defense": 10,
+      "enabled": true
+    },
+    "billiard_room": {
+      "id": "billiard_room",
+      "name": "Бильярдная",
+      "capacity": 35,
+      "type": "billiard_room",
+      "ant_ids": [],
+      "extra": {},
+      "x": 5,
+      "y": 1,
+      "defense": 2,
+      "enabled": true
+    },
+    "soft_sign_room": {
+      "id": "soft_sign_room",
+      "name": "Комната мягкого знака",
+      "capacity": 25,
+      "type": "soft_sign_room",
+      "ant_ids": [],
+      "extra": {},
+      "x": 6,
+      "y": 3,
+      "defense": 1,
+      "enabled": true
+    },
+    "pheromone_circle": {
+      "id": "pheromone_circle",
+      "name": "Феромоновый кружок (о)",
+      "capacity": 25,
+      "type": "pheromone_circle",
+      "ant_ids": [],
+      "extra": {},
+      "x": 2,
+      "y": 4,
+      "defense": 1,
+      "enabled": true
+    },
+    "mushroom_startup": {
+      "id": "mushroom_startup",
+      "name": "Грибной стартап",
+      "capacity": 40,
+      "type": "mushroom_startup",
+      "ant_ids": [],
+      "extra": {},
+      "x": 4,
+      "y": 4,
+      "defense": 2,
+      "enabled": true
+    },
+    "voting_room": {
+      "id": "voting_room",
+      "name": "Комната голосования",
+      "capacity": 80,
+      "type": "voting_room",
+      "ant_ids": [],
+      "extra": {},
+      "x": 3,
+      "y": 0,
+      "defense": 4,
+      "enabled": true
+    },
+    "surface": {
+      "id": "surface",
+      "name": "Поверхность",
+      "capacity": 500,
+      "type": "surface",
+      "ant_ids": [],
+      "extra": {},
+      "x": 3,
+      "y": 6,
+      "defense": 0,
+      "enabled": true
+    },
+    "server_room": {
+      "id": "server_room",
+      "name": "Серверная ANTCOIN",
+      "capacity": 30,
+      "type": "server_room",
+      "ant_ids": [],
+      "extra": {},
+      "x": 7,
+      "y": 2,
+      "defense": 3,
+      "enabled": false
+    },
+    "gym_seed": {
+      "id": "gym_seed",
+      "name": "Качалка семечки",
+      "capacity": 30,
+      "type": "gym_seed",
+      "ant_ids": [],
+      "extra": {},
+      "x": 1,
+      "y": 5,
+      "defense": 2,
+      "enabled": true
+    },
+    "water_room": {
+      "id": "water_room",
+      "name": "Комната с водой",
+      "capacity": 50,
+      "type": "water_room",
+      "ant_ids": [],
+      "extra": {},
+      "x": 6,
+      "y": 5,
+      "defense": 1,
+      "enabled": true
+    },
+    "rehab_cell": {
+      "id": "rehab_cell",
+      "name": "Одиночная реабилитация",
+      "capacity": 10,
+      "type": "rehab_cell",
+      "ant_ids": [],
+      "extra": {},
+      "x": 0,
+      "y": 5,
+      "defense": 0,
+      "enabled": true
+    },
+    "hammock_room": {
+      "id": "hammock_room",
+      "name": "Гамачная профсоюза",
+      "capacity": 45,
+      "type": "hammock_room",
+      "ant_ids": [],
+      "extra": {},
+      "x": 7,
+      "y": 5,
+      "defense": 0,
+      "enabled": true
+    },
+    "casino": {
+      "id": "casino",
+      "name": "Казино имени кийка",
+      "capacity": 30,
+      "type": "casino",
+      "ant_ids": [],
+      "extra": {},
+      "x": 5,
+      "y": 6,
+      "defense": 2,
+      "enabled": true
+    },
+    "cue_armory": {
+      "id": "cue_armory",
+      "name": "Арсенал бильярдных киёв",
+      "capacity": 20,
+      "type": "cue_armory",
+      "ant_ids": [],
+      "extra": {},
+      "x": 1,
+      "y": 0,
+      "defense": 8,
+      "enabled": true
+    },
+    "nursery": {
+      "id": "nursery",
+      "name": "Личиночный коворкинг",
+      "capacity": 45,
+      "type": "nursery",
+      "ant_ids": [],
+      "extra": {},
+      "x": 4,
+      "y": 0,
+      "defense": 4,
+      "enabled": true
+    },
+    "trade_floor": {
+      "id": "trade_floor",
+      "name": "Муравьиная биржа",
+      "capacity": 40,
+      "type": "trade_floor",
+      "ant_ids": [],
+      "extra": {},
+      "x": 7,
+      "y": 0,
+      "defense": 1,
+      "enabled": true
+    },
+    "council_office": {
+      "id": "council_office",
+      "name": "Кабинет чиновника",
+      "capacity": 12,
+      "type": "council_office",
+      "ant_ids": [],
+      "extra": {},
+      "x": 0,
+      "y": 1,
+      "defense": 0,
+      "enabled": true
+    }
+  },
+  "active_events": [],
+  "event_log": [],
+  "last_voting": null,
+  "queen_morale": 50,
+  "mushroom_fungus_level": 0,
+  "mushroom_food": 0,
+  "market_rates": {
+    "food/protein": 1.3,
+    "food/water": 1.0,
+    "protein/water": 1.1
+  },
+  "antcoin": 0.0,
+  "antcoin_classic": 0.0,
+  "btc_price": 69420.0,
+  "ant_price": 0.006941999999999999,
+  "nft_registry": {},
+  "nft_market": [],
+  "neighbors": [
+    {
+      "name": "Колония имени чужого дедлайна",
+      "attitude": -5,
+      "strength": 25,
+      "resources": {
+        "food": 50,
+        "protein": 20,
+        "water": 40,
+        "antcoin": 0
+      },
+      "last_action": "молчит и копает"
+    }
+  ],
+  "campaign": [
+    {
+      "id": "1.1",
+      "title": "Первый шар",
+      "description": "Открыть бильярдную и не потерять всю еду.",
+      "goals": {
+        "ticks": 10,
+        "rooms": 4
+      },
+      "reward": "Титул 'не совсем консоль'",
+      "completed": false,
+      "progress": {}
+    },
+    {
+      "id": "1.2",
+      "title": "Феромоновый бухгалтер",
+      "description": "Пережить голосование с суммой процентов не 100.",
+      "goals": {
+        "votes": 1
+      },
+      "reward": "Печать кворума",
+      "completed": false,
+      "progress": {}
+    },
+    {
+      "id": "1.3",
+      "title": "Матка сказала надо",
+      "description": "Построить или активировать 4 новые комнаты.",
+      "goals": {
+        "rooms": 10
+      },
+      "reward": "Чертеж казино",
+      "completed": false,
+      "progress": {}
+    },
+    {
+      "id": "2.1",
+      "title": "Соседи снизу",
+      "description": "Познакомиться с соседней колонией.",
+      "goals": {
+        "diplomacy": 1
+      },
+      "reward": "Пакет семечек дружбы",
+      "completed": false,
+      "progress": {}
+    },
+    {
+      "id": "2.2",
+      "title": "Грибной MVP",
+      "description": "Запустить грибной стартап и не получить конец света сразу.",
+      "goals": {
+        "mushroom_food": 10
+      },
+      "reward": "Сертификат стартапера",
+      "completed": false,
+      "progress": {}
+    },
+    {
+      "id": "2.3",
+      "title": "Крипто-матка",
+      "description": "Намайнить первые 100 ANT.",
+      "goals": {
+        "antcoin": 100
+      },
+      "reward": "Кошелек ANTCOIN V2",
+      "completed": false,
+      "progress": {}
+    },
+    {
+      "id": "3.1",
+      "title": "NFT, но без газа",
+      "description": "Отчеканить первого NFT-муравья.",
+      "goals": {
+        "nft": 1
+      },
+      "reward": "JPEG, который никто не видел",
+      "completed": false,
+      "progress": {}
+    },
+    {
+      "id": "3.2",
+      "title": "AI сказал норм",
+      "description": "Получить любой AI-off текст.",
+      "goals": {
+        "ai_lines": 1
+      },
+      "reward": "Шаблонная мудрость",
+      "completed": false,
+      "progress": {}
+    }
+  ],
+  "ai": {
+    "mode": "off",
+    "tokens_spent": 0,
+    "cache": {}
+  },
+  "ai_lines_generated": 0,
+  "history": [
+    {
+      "time": 0.0,
+      "population": 13.0,
+      "food": 999.0,
+      "protein": 499.0,
+      "water": 499.0,
+      "antcoin": 0.0,
+      "happiness": 50.0
+    }
+  ],
+  "god_mode_enabled": false,
+  "tui_speed": 1,
+  "paused": false
+}

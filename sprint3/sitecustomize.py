@@ -2,7 +2,5 @@ from pathlib import Path
 import sys
 
 SRC_DIR = Path(__file__).resolve().parent / "src"
-if str(SRC_DIR) not in sys.path:
+if SRC_DIR.exists() and str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
-
-from antsim.rooms import *  # noqa: F401,F403
