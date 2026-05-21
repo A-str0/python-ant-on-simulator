@@ -69,7 +69,7 @@ class TestColony:
                 id="invalid `food` type: 1",
             ),
             pytest.param(
-                _id(), 1, -100, pytest.raises(TypeError), id="invalid `food` type: 2"
+                _id(), 1, -100, pytest.raises(ValueError), id="invalid `food` value (negative during init)"
             ),
             pytest.param(
                 _id(), 1, 4j, pytest.raises(TypeError), id="invalid `food` type: 3"
@@ -127,4 +127,21 @@ class TestColony:
             colony.tick()
         assert food_left == colony.food, (
             f"Ожидалось, что в колонии останется `{food_left}` еп, фактически осталось: `{colony.food}`"
+        )
+
+    def test_food_never_negative_after_tick(self):
+        """Test that food cannot go below 0 after tick operations."""
+        colony = Colony("test-colony", ant_count=5, food=1)
+        for _ in range(10):
+            colony.tick()
+        assert colony.food >= 0, (
+            f"Food went negative: {colony.food}"
+        )
+
+    def test_food_stays_zero_when_insufficient(self):
+        """Test that food stays at 0, not negative, when ants consume more than available."""
+        colony = Colony("test-colony", ant_count=10, food=5)
+        colony.tick()
+        assert colony.food == 0, (
+            f"Expected food to be 0, got {colony.food}"
         )
