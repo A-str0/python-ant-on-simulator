@@ -99,6 +99,20 @@ def render_room(colony: Colony, room_id: str) -> str:
 
 
 def launch_tui(colony: Colony, save_dir: Path) -> None:
+    colony.random_events_enabled = True
+    colony.births_enabled = True
+    try:
+        from .textual_app import run_textual_tui
+    except ModuleNotFoundError:
+        print(
+            "Textual не установлен. Поставь зависимости из requirements.txt "
+            "(`python -m pip install -r requirements.txt`). "
+            "Пока запускаю аварийный CLI-fallback."
+        )
+    else:
+        run_textual_tui(colony, save_dir)
+        return
+
     while True:
         clear_screen()
         print(render_dashboard(colony))

@@ -148,6 +148,8 @@ class Colony:
         food: int,
         ant_type: str = "Harvester",
         seed: int | None = None,
+        random_events_enabled: bool = False,
+        births_enabled: bool = False,
     ) -> None:
         if not isinstance(colony_id, str):
             raise TypeError("colony_id must be a string")
@@ -188,6 +190,13 @@ class Colony:
         self.ant_price = self.btc_price * 0.0000001
         self.nft_registry: dict[str, dict[str, Any]] = {}
         self.nft_market: list[dict[str, Any]] = []
+        self.defi: dict[str, Any] = {
+            "liquidity": {"food": 0, "protein": 0, "water": 0, "antcoin": 0.0},
+            "loans": [],
+            "staked_ant": 0.0,
+            "interest_rate": 0.07,
+            "last_action": "рынок делает вид, что регулируется сам",
+        }
         self.neighbors: list[NeighborColony] = [
             NeighborColony("Колония имени чужого дедлайна", attitude=-5, strength=25)
         ]
@@ -198,6 +207,8 @@ class Colony:
         self.god_mode_enabled = False
         self.tui_speed = 1
         self.paused = False
+        self.random_events_enabled = random_events_enabled
+        self.births_enabled = births_enabled
         self.record_history()
 
     @property
@@ -280,9 +291,11 @@ class Colony:
             self._apply_room_effect(index, ant)
 
         self._handle_dead_assignments()
-        self._handle_birth()
+        if self.births_enabled:
+            self._handle_birth()
         self._handle_events()
-        self._maybe_spawn_event()
+        if self.random_events_enabled:
+            self._maybe_spawn_event()
         self._market_session_if_needed()
         self._campaign_tick()
         self.record_history()
@@ -342,6 +355,12 @@ class Colony:
             self.resources["food"] = max(0, self.resources["food"] - tax)
             if self.time > 100:
                 ant.add_status(AntStatus.CORRUPTED)
+        elif room.type == "trade_floor":
+            if AntStatus.FERMENTED in ant.statuses:
+                self.resources["food"] = max(0, self.resources["food"] - 2)
+                ant.remember("купил максимум на хаях")
+            else:
+                self.antcoin += 0.05
 
     def _casino_round(self, ant: Ant) -> None:
         if self.random.random() < 0.45:
@@ -598,6 +617,34 @@ class Colony:
             self.log(self.ai.event_text(self.summary(), self.time))
             self.ai_lines_generated += 1
             self._mission_progress("ai_lines", 1)
+        self._tick_defi()
+
+    def _tick_defi(self) -> None:
+        active_loans: list[dict[str, Any]] = []
+        for loan in self.defi["loans"]:
+            loan["ticks_left"] = int(loan.get("ticks_left", 0)) - 10
+            if loan["ticks_left"] <= 0:
+                debt = float(loan.get("amount", 0)) * (
+                    1.0 + float(loan.get("rate", 0.1))
+                )
+                if self.antcoin >= debt:
+                    self.antcoin -= debt
+                    self.defi["last_action"] = f"кредит закрыт: {debt:.1f} ANT"
+                else:
+                    for ant in self.get_alive_ants()[:3]:
+                        ant.add_status(AntStatus.BOUNTY, duration=20)
+                    self.defi["last_action"] = (
+                        "кредит не закрыт, солдаты пошли выбивать долг"
+                    )
+            else:
+                active_loans.append(loan)
+        self.defi["loans"] = active_loans
+
+        staked = float(self.defi.get("staked_ant", 0.0))
+        if staked > 0:
+            reward = staked * 0.002
+            self.antcoin += reward
+            self.defi["last_action"] = f"AntFarm накапал {reward:.2f} ANT"
 
     def trade_with_neighbor(self, neighbor_index: int, resource: str, amount: int) -> bool:
         if neighbor_index < 0 or neighbor_index >= len(self.neighbors):
@@ -647,6 +694,78 @@ class Colony:
         self.antcoin += amount
         self._mission_progress("antcoin", int(self.antcoin))
         return self.antcoin
+
+    def swap_resource(self, from_resource: str, to_resource: str, amount: int) -> bool:
+        if from_resource not in self.resources or to_resource not in self.resources:
+            return False
+        if amount <= 0 or self.resources[from_resource] < amount:
+            return False
+        pair = f"{from_resource}/{to_resource}"
+        reverse_pair = f"{to_resource}/{from_resource}"
+        rate = self.market_rates.get(pair)
+        if rate is None:
+            reverse = self.market_rates.get(reverse_pair, 1.0)
+            rate = 1.0 / reverse if reverse else 1.0
+        received = max(1, int(amount * rate * 0.9))
+        self.resources[from_resource] -= amount
+        self.resources[to_resource] += received
+        self.defi["last_action"] = (
+            f"AntSwap: {amount} {from_resource} -> {received} {to_resource}"
+        )
+        self.log(self.defi["last_action"])
+        return True
+
+    def provide_liquidity(self, resource: str, amount: int) -> bool:
+        if resource not in self.resources or amount <= 0:
+            return False
+        if self.resources[resource] < amount:
+            return False
+        self.resources[resource] -= amount
+        self.defi["liquidity"][resource] = (
+            int(self.defi["liquidity"].get(resource, 0)) + amount
+        )
+        reward = amount * 0.03
+        self.antcoin += reward
+        self.defi["last_action"] = (
+            f"AntSwap liquidity: +{amount} {resource}, комиссия {reward:.1f} ANT"
+        )
+        self.log(self.defi["last_action"])
+        return True
+
+    def take_ant_loan(self, amount: float, ticks: int = 20) -> bool:
+        if amount <= 0:
+            return False
+        self.antcoin += amount
+        loan = {
+            "id": str(uuid4()),
+            "amount": float(amount),
+            "rate": float(self.defi.get("interest_rate", 0.07)),
+            "ticks_left": int(ticks),
+        }
+        self.defi["loans"].append(loan)
+        self.defi["last_action"] = f"AntLend: взят кредит {amount:.1f} ANT"
+        self.log(self.defi["last_action"])
+        return True
+
+    def stake_ant(self, amount: float) -> bool:
+        if amount <= 0 or self.antcoin < amount:
+            return False
+        self.antcoin -= amount
+        self.defi["staked_ant"] = float(self.defi.get("staked_ant", 0.0)) + amount
+        self.defi["last_action"] = f"AntFarm: застейкано {amount:.1f} ANT"
+        self.log(self.defi["last_action"])
+        return True
+
+    def set_key_rate(self, rate: float) -> None:
+        self.defi["interest_rate"] = max(0.0, min(1.0, float(rate)))
+        corruption_pressure = int(self.defi["interest_rate"] * 10)
+        for ant in self.get_alive_ants()[:corruption_pressure]:
+            if AntStatus.OFFICIAL in ant.statuses:
+                ant.add_status(AntStatus.CORRUPTED, duration=30)
+        self.defi["last_action"] = (
+            f"Матка установила ставку {self.defi['interest_rate']:.2%}"
+        )
+        self.log(self.defi["last_action"])
 
     def mint_nft(self, ant_index: int, price: float = 50.0) -> str | None:
         if ant_index < 0 or ant_index >= len(self.ants):
@@ -723,6 +842,10 @@ class Colony:
             ):
                 ant.add_status(AntStatus.INJURED, duration=5)
             return "вредитель пришел, сказал что он ревьюер"
+        if action == "antcoin":
+            amount = float(kwargs.get("amount", 100.0))
+            self.mine_antcoin(amount)
+            return f"бог намайнит {amount:.1f} ANT, потому что может"
         return "бог нажал не ту кнопку"
 
     def force_event(self, event_type: str) -> str:
@@ -801,6 +924,9 @@ class Colony:
             "ant_price": self.ant_price,
             "btc_price": self.btc_price,
             "nft_count": len(self.nft_registry),
+            "defi": dict(self.defi),
+            "neighbors": [neighbor.to_dict() for neighbor in self.neighbors],
+            "campaign": [mission.to_dict() for mission in self.campaign],
             "average_stats": self.average_stats(),
             "average_happiness": self.average_happiness(),
             "history": list(self.history),
@@ -830,6 +956,7 @@ class Colony:
             "ant_price": self.ant_price,
             "nft_registry": dict(self.nft_registry),
             "nft_market": list(self.nft_market),
+            "defi": dict(self.defi),
             "neighbors": [neighbor.to_dict() for neighbor in self.neighbors],
             "campaign": [mission.to_dict() for mission in self.campaign],
             "ai": {
@@ -842,6 +969,8 @@ class Colony:
             "god_mode_enabled": self.god_mode_enabled,
             "tui_speed": self.tui_speed,
             "paused": self.paused,
+            "random_events_enabled": self.random_events_enabled,
+            "births_enabled": self.births_enabled,
         }
 
     @classmethod
@@ -885,6 +1014,9 @@ class Colony:
         colony.ant_price = float(data.get("ant_price", colony.btc_price * 0.0000001))
         colony.nft_registry = dict(data.get("nft_registry", {}))
         colony.nft_market = list(data.get("nft_market", []))
+        if "defi" in data:
+            loaded_defi = dict(data["defi"])
+            colony.defi.update(loaded_defi)
         colony.neighbors = [
             NeighborColony.from_dict(neighbor)
             for neighbor in data.get("neighbors", [n.to_dict() for n in colony.neighbors])
@@ -900,6 +1032,8 @@ class Colony:
         colony.god_mode_enabled = bool(data.get("god_mode_enabled", False))
         colony.tui_speed = int(data.get("tui_speed", 1))
         colony.paused = bool(data.get("paused", False))
+        colony.random_events_enabled = bool(data.get("random_events_enabled", True))
+        colony.births_enabled = bool(data.get("births_enabled", True))
         if not colony.history:
             colony.record_history()
         return colony

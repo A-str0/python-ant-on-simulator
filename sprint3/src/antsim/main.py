@@ -22,7 +22,14 @@ def create_colony_interactive() -> Colony | None:
         print("Ошибка ввода")
         return None
     colony_id = input("Название колонии: ") or f"colony_{ant_type}_{ant_count}"
-    colony = Colony(colony_id, ant_count, food, ant_type)
+    colony = Colony(
+        colony_id,
+        ant_count,
+        food,
+        ant_type,
+        random_events_enabled=True,
+        births_enabled=True,
+    )
     save_colony(colony, SAVE_DIR)
     return colony
 
@@ -44,7 +51,15 @@ def load_colony_interactive() -> Colony | None:
 
 
 def quick_demo() -> None:
-    colony = Colony("demo_sprint3", 30, 2000, "Harvester", seed=42)
+    colony = Colony(
+        "demo_sprint3",
+        30,
+        2000,
+        "Harvester",
+        seed=42,
+        random_events_enabled=True,
+        births_enabled=True,
+    )
     room_ids = ["surface", "food_storage", "billiard_room", "server_room", "gym_seed"]
     colony.rooms["server_room"].enabled = True
     for index, _ant in enumerate(colony.ants[:20]):
